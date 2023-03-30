@@ -48,4 +48,14 @@ public class BookController {
     public Book createBook(@Argument BookInput bookInput){
         return bookService.createBook(bookInput);
     }
+
+    @MutationMapping
+    public Book updateBook(@Argument Long id, @Argument BookInput bookInput){
+        return bookService.updateBook(id, bookInput);
+    }
+
+    @MutationMapping
+    public void deleteBook(@Argument Long id){
+        bookService.deleteBook(id);
+    }
 }

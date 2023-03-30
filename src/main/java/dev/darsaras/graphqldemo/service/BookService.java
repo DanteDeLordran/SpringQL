@@ -1,7 +1,6 @@
 package dev.darsaras.graphqldemo.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import dev.darsaras.graphqldemo.model.Book;
@@ -27,6 +26,22 @@ public class BookService {
                 .author(bookInput.author())
                 .build();
         return bookRepository.save(book);
+    }
+
+    public Book updateBook(Long id,BookInput bookInput) {
+        Book bookToUpdate = bookRepository.findById(id).orElse(null);
+        if(bookToUpdate == null) {
+            throw new RuntimeException("Book not found");
+        }
+        bookToUpdate.setTitle(bookInput.title());
+        bookToUpdate.setPages(bookInput.pages());
+        bookToUpdate.setAuthor(bookInput.author());
+        bookRepository.save(bookToUpdate);
+        return bookToUpdate;
+    }
+
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 
 }
